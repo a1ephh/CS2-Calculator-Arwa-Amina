@@ -13,12 +13,16 @@ double multiplication(double x, double y) {
 }
 
 double division(double x, double y) {
-    if(y==0){return 0;} // give an error
+    if(y==0){
+        cout << endl << "Error: Attempted Divising by 0" << endl;
+        return 0;} 
     return x / y; 
 }
 
 double factorial(double x) { 
-    if(x<0){return -1;} // give an error
+    if(x<0){
+        cout << endl << "Error: factorial of a negative number does not exist" << endl;
+        return -1;} 
 
     if (x == 0 || x == 1) {
         return 1;
@@ -37,17 +41,18 @@ double GCD(double x, double y) {
     if (y == 0) {
         return x;
     }
-    return GCD(y, x%y);
+    
+    return GCD(y, fmod(x,y));
 }
 
 double LCM(double x, double y) {
     return (x / GCD(x, y)) * y;
 }
 
-double random(T x, T y){ // range is x-y 
+double random(double x, double y){ // range is x-y 
     if(x>y) swap(x,y);
     srand (time(NULL));
-    T number= rand() % y +x;
+    double number= rand() % static_cast<int>(y) +x;
     return number;
 } 
 
@@ -64,8 +69,8 @@ void menu(){
     double b=0;
     do{
     cout << endl << "----------------" << endl << "Choose one of the following operations: " << endl;
-    cout << "1. Addition" << endl << "2. Subtraction" << endl << "3. Multiplication" << endl "4. Division" << endl << "5. Factorial" << endl;
-    cout << "6. GCD" << endl << "7. LCM" << endl << "8.Random" << endl << "9. End Program";
+    cout << "1. Addition" << endl << "2. Subtraction" << endl << "3. Multiplication" << endl << "4. Division" << endl << "5. Factorial" << endl;
+    cout << "6. GCD" << endl << "7. LCM" << endl << "8.Random (input 2 numbers to determine the range)" << endl << endl << "0. End Program" << endl << "Enter your choice: ";
 
 cin >> choice;
 switch (choice) {
@@ -109,7 +114,7 @@ switch (choice) {
     cout << endl << "A random number between " << a << " and " << b << " is " << random(a,b) << endl;
     break; 
     case 9:
-    break;  } while(choice!=0);
-}
+    break;}} while(choice!=0);
+
 
 }

@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <cmath>
 
 using namespace std;
 
@@ -12,11 +13,11 @@ double subtraction(double x, double y);
 
 double multiplication(double x, double y);
 
-double Division(double x, double y);
+double division(double x, double y);
 
-double Factorial(double x, double y);
+double factorial(double x);
 
-double swap(double x, double y);
+void swap(double &x, double &y);
 
 double GCD(double x, double y);
 
