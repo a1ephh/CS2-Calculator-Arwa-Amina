@@ -1,22 +1,18 @@
 
-/*
-criteria: 
-
-A header file (calculator.h) containing function declarations for:
-Addition of two numbers
-Subtraction of two numbers
-Multiplication of two numbers
-Division of two numbers
-Factorial calculation
-Greatest Common Divisor (GCD) calculation
-Least Common Multiple (LCM) calculation
-Random number generation (within a range) */
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "calculator.h"
 
 using namespace std;
 
 int main() {
+
+    cout << "Welcome to the Calculator app." << endl;
+
+
+
     double a = 22.0, b = 3.5;
 
     cout << "Addition of a and b is: " << addition(a, b) << endl;
@@ -36,4 +32,6 @@ int main() {
     cout << "Before swap: a = " << a << ", b = " << b << endl;
     swap(a, b);
     cout << "After swap: a = " << a << ", b = " << b << endl;
+
+    menu();
 }
