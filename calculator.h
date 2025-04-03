@@ -6,30 +6,24 @@
 
 using namespace std;
 
-template <typename T>
-T addition(T x, T y);
+double addition(double x, double y);
 
-template <typename T>
-T subtraction(T x, T y);
+double subtraction(double x, double y);
 
-template <typename T>
-T multiplication(T x, T y);
+double multiplication(double x, double y);
 
-template <typename T>
-T Division(T x, T y);
+double Division(double x, double y);
 
-template <typename T>
-T Factorial(T x, T y);
+double Factorial(double x, double y);
 
-template <typename T>
-T swap(T x, T y);
+double swap(double x, double y);
 
-template <typename T>
-T GCD(T x, T y);
+double GCD(double x, double y);
 
-template <typename T>
-T LCM(T x, T y);
+double LCM(double x, double y);
 
-template <typename T>
-T Random(T x, T y);
+double random(double x, double y);
 
+double inputNumber();
+
+void menu();
