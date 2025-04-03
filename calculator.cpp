@@ -2,60 +2,51 @@
 
 
 
-template <typename T>
-T addition(T x, T y){
- return x+y;   
+double addition(double x, double y) {
+    return x + y;
 }
 
-template <typename T>
-T subtraction(T x, T y){
-    return x-y;
+double subtraction(double x, double y) {
+    return x - y;
 }
 
-template <typename T>
-T multiplication(T x, T y){
-    return x*y;
+double multiplication(double x, double y) {
+    return x * y;
 }
 
-template <typename T>
-T Division(T x, T y){
-    if(y==0) {return 0;} // implement throwing an error / printing error if divisor is 0
-    return x/y; 
+double Division(double x, double y) {
+    return x / y;
 }
 
-template <typename T>
-T Factorial(T x){
-    if(x==0){ return 1;}
-    else if(x==1){return 1;}
-    else {
-        return x*(x-1);
+double Factorial(double x) {
+    if (x == 0 || x == 1) {
+        return 1;
     }
+    return x * (x - 1);
 }
 
-template <typename T>
-void swap(T &x, T &y){
-    T temp=x;
-    x=y;
-    y=temp;
+void swap(double &x, double &y) {
+    double temp = x;
+    x = y;
+    y = temp;
     return;
 }
 
-template <typename T>
-T GCD(T x, T y){
-    
+double GCD(double x, double y) {
+    if (y == 0) {
+        return x;
+    }
+    return GCD(y, fmod(x, y));
 }
 
-template <typename T>
-T LCM(T x, T y){
-    
+double LCM(double x, double y) {
+    return (x / GCD(x, y)) * y;
 }
 
-template <typename T>
-T Random(T x, T y){ // range is x-y 
-    if(x>y) swap(x,y);
-     srand (time(NULL));
-    T number= rand() % y +x;
-    return number;
-} 
-
-
+double Random(double x, double y) {
+    if (x > y) swap(x, y);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<double> dist(x, y);
+    return dist(gen);
+}
