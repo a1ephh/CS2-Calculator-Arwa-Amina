@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <cmath>
+#include <string>
+#include <stack>
+#include <queue>
+
 
 using namespace std;
 
@@ -28,3 +32,5 @@ double random(double x, double y);
 double inputNumber();
 
 void menu();
+
+double parsing();

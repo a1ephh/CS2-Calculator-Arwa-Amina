@@ -1,120 +1,124 @@
-#include "calculator.h"
+double parsing(){
+    string input;   // eg: (2+1)*5
+    cout << "Enter an arithmetic expression: ";
+    cin >> input;
+    stack<string> operators;
+    queue <string> output;
+    string currentNb;
 
-double addition(double x, double y) {
-    return x + y;
-}
 
-double subtraction(double x, double y) {
-    return x - y;
-}
 
-double multiplication(double x, double y) {
-    return x * y;
-}
+    for(int i=0;i < input.length(); ++i){
 
-double division(double x, double y) {
-    if(y==0){
-        cout << endl << "Error: Attempted Divising by 0" << endl;
-        return 0;} 
-    return x / y; 
-}
+        if(isdigit(input[i])){ //checking if its a number
+        currentNb+=input[i];}
+        else if (input[i] == ' ') { 
+            if (!currentNb.empty()) {
+                output.push(currentNb);
+                currentNb = ""; //reset
+        }} else if (input[i] == '(') {
+            operators.push(string(1, input[i]));}
+            else if(input[i] == ')'){
+                        if(!currentNb.empty()){ // if a current nb exists then push it into output queue and reset
+                            output.push(currentNb);
+                            currentNb="";
+                        } 
+                        while(!operators.empty() && operators.top() !="("){
+                            string opTop=operators.top();
+                            output.push(opTop);
+                            operators.pop();
+                        } 
+                        if(operators.empty()){
+                            cout << "Error: Unbalanced Parantheses";
+                            return -1;
+                        }
+                        operators.pop(); // pop the opening (
+            }
+            else if (input[i] == '+' || input[i] == '-' ){ 
+                if(!currentNb.empty()){     // 1+3*(5-3) current nb=1 so push into output then push + 
+                    output.push(currentNb);
+                    currentNb="";
+                }
+                
+                if(!operators.empty()){
+                while(operators.top()== "*" || operators.top()=="/"){
+                    string opTop=operators.top();
+                    output.push(opTop);
+                    operators.pop();
+                }}
+                output.push(string(1, input[i])); // now push the +
+                
+            }
+            else if (input[i] == '*' || input[i] == '/' ){ 
+                if(!currentNb.empty()){     
+                    output.push(currentNb);
+                    currentNb="";
+                }
+                
+                output.push(string(1, input[i])); 
+                
+            }
+        else{
+            cout << endl << "Error: input is not exclusively numbers and operators";
+            return -1;
+        }}
+        while(!operators.empty()){
+            output.push(operators.top());
+            operators.pop();
+        }
+        //////// now we do postfix evalulation
+stack<double> evaluation_stack;
+    while (!output.empty()) {
+        string token = output.front();
+        output.pop();
 
-double factorial(double x) { 
-    if(x<0){
-        cout << endl << "Error: factorial of a negative number does not exist" << endl;
-        return -1;} 
-
-    if (x == 0 || x == 1) {
-        return 1;
+        if (isdigit(token[0]) || (token.length() > 1 && isdigit(token[1]))) {
+            try {
+                evaluation_stack.push(stod(token));
+            } catch (const std::invalid_argument& e) {
+                cout << endl << "Error: Invalid number in RPN output." << endl;
+                return -1.0;
+            } catch (const std::out_of_range& e) {
+                cout << endl << "Error: Number out of range." << endl;
+                return -1.0;
+            }
+        } else if (token.length() == 1) {
+            char op = token[0];
+            if (evaluation_stack.size() < 2) {
+                cout << endl << "Error: Not enough operands for operator '" << op << "'." << endl;
+                return -1.0;
+            }
+            double operand2 = evaluation_stack.top();
+            evaluation_stack.pop();
+            double operand1 = evaluation_stack.top();
+            evaluation_stack.pop();
+            double result;
+            switch (op) {
+                case '+': result = operand1 + operand2; break;
+                case '-': result = operand1 - operand2; break;
+                case '*': result = operand1 * operand2; break;
+                case '/':
+                    if (operand2 == 0) {
+                        cout << endl << "Error: Division by zero." << endl;
+                        return -1.0;
+                    }
+                    result = operand1 / operand2;
+                    break;
+                default:
+                    cout << endl << "Error: Invalid operator in RPN output: '" << op << "'." << endl;
+                    return -1.0;
+            }
+            evaluation_stack.push(result);
+        } else {
+            cout << endl << "Error: Invalid token in RPN output: '" << token << "'." << endl;
+            return -1.0;
+        }
     }
-    return x * (x - 1);
-}
 
-void swap(double &x, double &y) {
-    double temp = x;
-    x = y;
-    y = temp;
-    return;
-}
-
-double GCD(double x, double y) {
-    if (y == 0) {
-        return x;
+    if (evaluation_stack.size() != 1) {
+        cout << endl << "Error: Too many operands or operators." << endl;
+        return -1.0;
     }
-    
-    return GCD(y, fmod(x,y));
-}
 
-double LCM(double x, double y) {
-    return (x / GCD(x, y)) * y;
-}
-
-double random(double x, double y){ // range is x-y 
-    if(x>y) swap(x,y);
-    srand (time(NULL));
-    double number= rand() % static_cast<int>(y) +x;
-    return number;
-} 
-
-double inputNumber(){
-    double x;
-    cout << endl << "Enter a number: ";
-    cin >> x;
-    return x;
-}
-
-void menu(){
-    int choice;
-    double a=0;
-    double b=0;
-    do{
-    cout << endl << "----------------" << endl << "Choose one of the following operations: " << endl;
-    cout << "1. Addition" << endl << "2. Subtraction" << endl << "3. Multiplication" << endl << "4. Division" << endl << "5. Factorial" << endl;
-    cout << "6. GCD" << endl << "7. LCM" << endl << "8.Random (input 2 numbers to determine the range)" << endl << endl << "0. End Program" << endl << "Enter your choice: ";
-
-cin >> choice;
-switch (choice) {
-  case 1:
-    a = inputNumber();
-    b = inputNumber();
-    cout << endl << a << " + " << b << " = " << addition(a,b) << endl;
-    break;
-  case 2:
-    a = inputNumber();
-    b = inputNumber();
-    cout << endl << a << " - " << b << " = " << subtraction(a,b) << endl;
-    break;
-  case 3:
-    a = inputNumber();
-    b = inputNumber();
-    cout << endl << a << " * " << b << " = " << multiplication(a,b) << endl;
-    break;
-  case 4:
-  a = inputNumber();
-    b = inputNumber();
-    cout << endl << a << " / " << b << " = " << division(a,b) << endl;
-    break;
-  case 5:
-    a = inputNumber();
-    cout << endl << a << "! " << " = " << factorial(a) << endl;
-    break;
-  case 6:
-    a = inputNumber();
-    b = inputNumber();
-    cout << endl << "The GCD between " << a << " and " << b << " is " << GCD(a,b) << endl;
-    break;
-  case 7:
-    a = inputNumber();
-    b = inputNumber();
-    cout << endl << "The LCM between " << a << " and " << b << " is " << LCM(a,b) << endl;
-    break;
-   case 8:
-    a = inputNumber();
-    b = inputNumber();
-    cout << endl << "A random number between " << a << " and " << b << " is " << random(a,b) << endl;
-    break; 
-    case 9:
-    break;}} while(choice!=0);
-
-
+    return evaluation_stack.top();
 }
