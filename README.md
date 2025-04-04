@@ -9,6 +9,6 @@ The purpose of this project, and by extension this repository, is to prototype a
 
 3.) test.cpp - a file that calls all the functions and allows the user to use the calculator 
 
-4.) the cmake files that allow the calculator to run on any computer. 
+4.) the cmake files that build the executable file of the calculator.
 
-This project is the work of Arwa Hassan and Amina Elshafei for submission in assignment 1 in CS2 lab to Dr. Kryellos. 
+This project is the work of Arwa Hassan and Amina Elshafei for submission in assignment 1 in CS2 lab to Dr. Kyrelloss. 
