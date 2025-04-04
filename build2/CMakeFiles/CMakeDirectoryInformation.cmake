@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "/Users/arrwa/Desktop/cs2lab/assignment 1/CS2-Calculator-Arwa-Amina")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "/Users/arrwa/Desktop/cs2lab/assignment 1/CS2-Calculator-Arwa-Amina/build")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "/Users/arrwa/Desktop/cs2lab/assignment 1/CS2-Calculator-Arwa-Amina/build2")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

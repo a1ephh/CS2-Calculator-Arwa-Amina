@@ -132,13 +132,12 @@ int precedence(char op) {
 }
 
 double parsing(string input) {
-
     stack<char> operators;
     queue<string> output;
     string current_number;
 
     for (int i = 0; i < input.length(); ++i) {
-        if (isdigit(input[i])) {
+        if (isdigit(input[i]) || input[i] == '.') {
             current_number += input[i];
         } else if (input[i] == ' ') {
             if (!current_number.empty()) {
@@ -153,8 +152,7 @@ double parsing(string input) {
                 current_number = "";
             }
             while (!operators.empty() && operators.top() != '(') {
-                string op(1, operators.top());
-                output.push(op);
+                output.push(string(1, operators.top()));
                 operators.pop();
             }
             if (operators.empty()) {
@@ -167,9 +165,8 @@ double parsing(string input) {
                 output.push(current_number);
                 current_number = "";
             }
-            while (!operators.empty() && precedence(operators.top()) >= precedence(input[i])) {
-                string op(1, operators.top());
-                output.push(op);
+            while (!operators.empty() && operators.top() != '(' && precedence(operators.top()) >= precedence(input[i])) {
+                output.push(string(1, operators.top()));
                 operators.pop();
             }
             operators.push(input[i]);
@@ -188,18 +185,17 @@ double parsing(string input) {
             cout << endl << "Error: Mismatched parentheses." << endl;
             return -1.0;
         }
-        string op(1, operators.top());
-        output.push(op);
+        output.push(string(1, operators.top()));
         operators.pop();
     }
 
-    ////// postfix evaluation
+    ////// postfix evaluation (remains the same)
     stack<double> evaluation_stack;
     while (!output.empty()) {
         string token = output.front();
         output.pop();
 
-        if (isdigit(token[0]) || (token.length() > 1 && isdigit(token[1]))) {
+        if (isdigit(token[0]) || (token[0] == '-' && token.length() > 1 && isdigit(token[1])) || token[0] == '.') {
             try {
                 evaluation_stack.push(stod(token));
             } catch (const invalid_argument& e) {
@@ -221,12 +217,9 @@ double parsing(string input) {
             evaluation_stack.pop();
             double result;
             switch (op) {
-                case '+': result = operand1 + operand2; 
-                break;
-                case '-': result = operand1 - operand2; 
-                break;
-                case '*': result = operand1 * operand2; 
-                break;
+                case '+': result = operand1 + operand2; break;
+                case '-': result = operand1 - operand2; break;
+                case '*': result = operand1 * operand2; break;
                 case '/':
                     if (operand2 == 0) {
                         cout << endl << "Error: Division by zero." << endl;
@@ -252,4 +245,3 @@ double parsing(string input) {
 
     return evaluation_stack.top();
 }
-
