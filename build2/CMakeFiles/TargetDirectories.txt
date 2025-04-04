@@ -1,3 +1,0 @@
-/Users/arrwa/Desktop/cs2lab/assignment 1/CS2-Calculator-Arwa-Amina/build2/CMakeFiles/trial.dir
-/Users/arrwa/Desktop/cs2lab/assignment 1/CS2-Calculator-Arwa-Amina/build2/CMakeFiles/edit_cache.dir
-/Users/arrwa/Desktop/cs2lab/assignment 1/CS2-Calculator-Arwa-Amina/build2/CMakeFiles/rebuild_cache.dir

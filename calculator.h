@@ -33,4 +33,4 @@ double inputNumber();
 
 void menu();
 
-double parsing();
+double parsing(string input);

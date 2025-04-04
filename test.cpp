@@ -5,6 +5,7 @@
 #include <time.h>
 #include "calculator.h"
 #include <cmath>
+#include <string>
 
 using namespace std;
 
@@ -33,6 +34,7 @@ int main() {
     cout << "Before swap: a = " << a << ", b = " << b << endl;
     swap(a, b);
     cout << "After swap: a = " << a << ", b = " << b << endl;
+    cout << endl << "Evaluation of 3 + 4 * (2 - 1) / 5 is " << parsing("3 + 4 * (2 - 1) / 5") << endl;
 
     menu();
 }
